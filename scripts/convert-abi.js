@@ -3,6 +3,7 @@ const { utils}  = require("ethers");
 
 require('dotenv').config();
 
+// abi artifacts from comipled hardhat
 const ABI =  [
     {
       "inputs": [
