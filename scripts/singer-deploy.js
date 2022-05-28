@@ -2,6 +2,8 @@
 // https://hardhat.org/guides/compile-contracts.html
 // https://docs.ethers.io/v5/api/contract/contract-factory/
 // https://docs.ethers.io/v5/api/contract/example/
+// https://docs.ethers.io/v5/api/utils/abi/formats/, human-redable contract
+// https://docs.ethers.io/v5/api/utils/abi/interface/, method to convert
 ethers = require('ethers');
 
 require('dotenv').config();
