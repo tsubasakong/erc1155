@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
 
-// Into the Metaverse NFTs are governed by the following terms and conditions: https://a.did.as/into_the_metaverse_tc
 
 pragma solidity ^0.8.9;
 
@@ -12,39 +11,36 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import './AbstractERC1155Factory.sol';
 
 /*
-* @title ERC1155 token for Adidas cards
-* @author Niftydude
+* @title ERC1155 token for Web3Shop designer collections
+* @author Lab3
 */
-contract AdidasOriginals is AbstractERC1155Factory  {
+contract Shop3Collection is AbstractERC1155Factory  {
 
-    uint256 constant MAX_SUPPLY = 30000;
 
-    uint8 maxPerTx = 2;
-    uint8 maxTxPublic = 2;
-    uint8 maxTxEarly = 1;
 
-    uint256 public mintPrice = 0.1 ether;
-
-    
+    uint256 public maxSupply = 0; // 0: unlimited supply
+    uint256 public mintPrice;
+    uint256 maxPerTx = 100;
+   
     
 
-    mapping(address => uint256) public purchaseTxs;
 
     event Purchased(uint256 indexed index, address indexed account, uint256 amount);
 
     constructor(
         string memory _name,
         string memory _symbol,
-        string memory _uri
-        // uint8 _maxPerWallet,
-        // uint8 _maxPerTx,
-        // uint256 _minPrice
+        string memory _uri,
+        uint256 _mintPrice,
+        uint256 _maxSupply
+       
 
         
     ) ERC1155(_uri)  {
         name_ = _name;
         symbol_ = _symbol;
-
+        mintPrice = _mintPrice;
+        maxSupply = _maxSupply;
     }
 
     /**
@@ -66,7 +62,6 @@ contract AdidasOriginals is AbstractERC1155Factory  {
     * @param amount the amount of tokens to purchase
     */
     function purchase(uint256 amount) external payable whenNotPaused {
-        require(purchaseTxs[msg.sender] < maxTxPublic , "max tx amount exceeded");
 
         _purchase(amount);
 
@@ -79,10 +74,8 @@ contract AdidasOriginals is AbstractERC1155Factory  {
     */
     function _purchase(uint256 amount) private {
         require(amount > 0 && amount <= maxPerTx, "Purchase: amount prohibited");
-        require(totalSupply(0) + amount <= MAX_SUPPLY, "Purchase: Max supply reached");
-        require(msg.value == amount * mintPrice, "Purchase: Incorrect payment");
-
-        purchaseTxs[msg.sender] += 1;
+        if (maxSupply >0) {require(totalSupply(0) + amount <= maxSupply, "Purchase: Max supply reached");}
+        require(msg.value >= amount * mintPrice, "Purchase: Incorrect payment");
 
         _mint(msg.sender, 0, amount, "");
         emit Purchased(0, msg.sender, amount);
