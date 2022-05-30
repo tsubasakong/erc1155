@@ -90,6 +90,6 @@ contract Shop3Collection is AbstractERC1155Factory  {
     function uri(uint256 _id) public view override returns (string memory) {
             require(exists(_id), "URI: nonexistent token");
 
-            return string(abi.encodePacked(super.uri(_id), Strings.toString(_id)));
+            return string(super.uri(_id));
     }
 }
