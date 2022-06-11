@@ -2,6 +2,7 @@ require("@nomiclabs/hardhat-waffle");
 require('@nomiclabs/hardhat-ethers');
 require('hardhat-gas-reporter');
 require("@nomiclabs/hardhat-etherscan");
+require('@openzeppelin/hardhat-upgrades');
 
 // const path = require('path')
 // require('dotenv').config({ path: path.resolve(__dirname, '../.env') })

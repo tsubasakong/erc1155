@@ -38,25 +38,32 @@ describe("Lab3 designer collections", function () {
     .to.emit(shop3, "Purchased") //Purchased(0, msg.sender, amount);
     .withArgs(0, owner,min_amount);
 
+    // expect(
+    //   await shop3.purchase(min_amount, {
+    //     value: mintPrice.mul(min_amount),
+    //   })
+    // )
+    // .to.emit(shop3, "Purchased") //Purchased(0, msg.sender, amount);
+    // .withArgs(0, owner,min_amount);
+
     console.log("token uri", await shop3.uri(0))
   })
 
   // insufficient purchase value
-  it("insufficnet purchase value", async () => {
-    let min_amount = 1;
+  // it("insufficnet purchase value", async () => {
+  //   let min_amount = 1;
 
-    const mintPrice =  ethers.BigNumber.from(String(await shop3.mintPrice()));
-    const send_value = mintPrice.mul(min_amount).div(2);
-    // await before "expet", not inside the transaction call "purchase"
-    await expect(
-      shop3.purchase(min_amount, {
-        value: send_value,
-      })
-    ).to.be.revertedWith("Purchase: Incorrect payment");
-  }
+  //   const mintPrice =  ethers.BigNumber.from(String(await shop3.mintPrice()));
+  //   const send_value = mintPrice.mul(min_amount).div(2);
+  //   // await before "expet", not inside the transaction call "purchase"
+  //   await expect(
+  //     shop3.purchase(min_amount, {
+  //       value: send_value,
+  //     })
+  //   ).to.be.revertedWith("Purchase: Incorrect payment");
+  // }
 
-
-  )
+  // )
   
 });
 
