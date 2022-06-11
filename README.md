@@ -1,5 +1,7 @@
 # Basic Sample Hardhat Project
-
+Update:
+- proxy contract (rinkeby scan 0x6B30d7A5172a2faBEa1F0F8500D337aa493fABd5)
+- 
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
 
 Try running some of the following tasks:
