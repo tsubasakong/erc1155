@@ -7,11 +7,13 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155Upgradeable.sol";
-import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155SupplyUpgradeable.sol";
 
-// import '../AbstractERC1155Factory.sol';
+
+import '../UpgradeableAbstractERC1155Factory.sol';
 
 /*
 * @title ERC1155 token for Web3Shop designer collections
@@ -19,7 +21,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 */
 contract Shop3CollectionV1 is 
     Initializable,
-    ERC1155Upgradeable   
+    UpgradeableAbstractERC1155Factory
     {
 
 
@@ -99,7 +101,7 @@ contract Shop3CollectionV1 is
     */
     function _purchase(uint256 amount) private {
         require(amount > 0 && amount <= maxPerTx, "Purchase: amount prohibited");
-        // if (maxSupply >0) {require(totalSupply(0) + amount <= maxSupply, "Purchase: Max supply reached");}
+        if (maxSupply >0) {require(totalSupply(0) + amount <= maxSupply, "Purchase: Max supply reached");}
         require(msg.value >= amount * mintPrice, "Purchase: Incorrect payment");
 
         _mint(msg.sender, 0, amount, "");
@@ -113,7 +115,7 @@ contract Shop3CollectionV1 is
     * @param _id the card id to return metadata for
     */
     function uri(uint256 _id) public view override returns (string memory) {
-            // require(exists(_id), "URI: nonexistent token");
+            require(exists(_id), "URI: nonexistent token");
 
             return string(super.uri(_id));
     }

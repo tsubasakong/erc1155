@@ -7,6 +7,7 @@ import '@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol';
 import '@openzeppelin/contracts/security/Pausable.sol';
 import '@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol';
 
+
 abstract contract AbstractERC1155Factory is Pausable, ERC1155Supply, ERC1155Burnable, Ownable {
 
     string name_;
